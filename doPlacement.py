@@ -22,6 +22,7 @@ def main() {
         print str(err) # 'Usage: --srcfile <sourcefile> --dstfile <destfile> 
         usage()        #         --srchost <sourcehost> --dsthost <desthost>'
         sys.exit(4)
+
     for opt, arg in options:
         if opt == '--srcfile':
             srcFile = arg
