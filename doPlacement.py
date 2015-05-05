@@ -10,10 +10,30 @@ import signal
 import socket
 import time
 
-def main(argv) {
-    srcFile = argv[1]
+def main() {
+    srcFile = ''
+    dstFile = ''
+
+    SRC_HOST=''
+    DST_HOST=''
+    try:
+        opts, args = getopt.gnu_getopt(sys.argv[1:], '', [ 'srcfile=', 'dstfile=', 'srchost=', 'dsthost='])
+    except getopt.GetoptError as err:
+        print str(err) # 'Usage: --srcfile <sourcefile> --dstfile <destfile> 
+        usage()        #         --srchost <sourcehost> --dsthost <desthost>'
+        sys.exit(4)
+    for opt, arg in options:
+        if opt == '--srcfile':
+            srcFile = arg
+        elif opt == '--dstfile':
+            dstFile = arg
+        elif opt == '--srchost':
+            SRC_HOST = arg
+        elif opt == '--dsthost':
+            DST_HOST = arg
+        
     ifile = open(srcFile)
-    dstFile = srcFile + "-submit"
+    catfile = ifile.read()
     ofile = open(dstFile, "w+")
     
     output = srcFile + ".out"
