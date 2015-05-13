@@ -98,6 +98,7 @@ def main(argv):
     ofile.write('requirements = (Machine == "$(DST_HOST)")\n')
     ofile.write("transfer_output_files = empty\n")
     ofile.write("queue\n")
+    ofile.close()
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
