@@ -10,6 +10,14 @@ import time
 import getopt
 import subprocess
 
+def sfString1():
+	
+def sfString2():
+
+def sfString3():
+
+def sfString4():
+
 def main(argv):
     srcFile = ''
     dstFile = ''
@@ -48,13 +56,13 @@ def main(argv):
     ofile.write("############\n")
     ofile.write("\n")
     ofile.write("universe = parallel\n")
-    ofile.write("executable = %s.py\n" % srcFile)
+    ofile.write("executable = placement2.py\n")
     ofile.write("\n")
     
     ofile.write("SRC_HOST=%s\n" % srcHost)
-    SRC_PATH=/home/idpl/100M
+    ofile.write("SRC_PATH=/home/idpl/100M")
     ofile.write("DST_HOST=%s\n" % dstHost)
-    DST_PATH=100M
+    ofile.write("DST_PATH=100M")
     ofile.write("\n")
 
     ofile.write("# Keep running the job\n")
