@@ -11,7 +11,7 @@ import time
 import getopt
 import subprocess
 
-def SF1HEADER():
+def sf1Header(ofile):
     ofile.write("############\n")
     ofile.write("#\n")
     ofile.write("# Parallel Job\n")
@@ -22,14 +22,14 @@ def SF1HEADER():
     ofile.write("executable = placement2.py\n")
     ofile.write("\n")
 
-def sf2Hosts(srcHost, dstHost):
+def sf2Hosts(ofile, srcHost, dstHost):
     ofile.write("SRC_HOST=%s\n" % srcHost)
     ofile.write("SRC_PATH=/home/idpl/100M")
     ofile.write("DST_HOST=%s\n" % dstHost)
-    ofile.write("DST_PATH=100M")
+    ofile.write("DST_PATH=100M\n")
     ofile.write("\n")
 
-def SF3ARGS():
+def sf3Args(ofile):
     ofile.write("# Keep running the job\n")
     ofile.write("on_exit_remove=false\n")
     ofile.write("\n")
@@ -43,7 +43,7 @@ def SF3ARGS():
     ofile.write("+WantIOProxy = true\n")
     ofile.write("\n")
 
-def sf4IO(out, error, log):
+def sf4IO(ofile, out, error, log):
     ofile.write("input   = /dev/null\n")
     ofile.write("output = %s.$(Node)\n" % out)
     ofile.write("error  = %s.$(Node)\n" % error)
@@ -55,7 +55,7 @@ def sf4IO(out, error, log):
     ofile.write('+DstPath = "$(DST_PATH)"\n')
     ofile.write("\n")
 
-def SF5POLICY():
+def sf5Policy(ofile):
     ofile.write('+ParallelShutdownPolicy = "WAIT_FOR_ALL"\n')
     ofile.write("\n")
     ofile.write("transfer_input_files = DataMover.py,TimedExec.py,IDPLException.py,CondorTools.py,empty\n")
@@ -91,7 +91,7 @@ def main(argv):
         sys.exit(1)
     for opt, arg in opts:
         if opt == '-h':
-            print 'doPlacement.py -srcfile <sourcefile> --dstfile <destfile> --srchost <sourcehost> --dsthost <desthost>'
+            print 'doPlacement.py --srcfile <sourcefile> --dstfile <destfile> --srchost <sourcehost> --dsthost <desthost>'
             sys.exit()
         elif opt == '--srcfile':
             srcFile = arg
@@ -106,6 +106,7 @@ def main(argv):
     error  = dstFile + ".err"
     log    = dstFile + ".log"
     submit = dstFile + "-submit"
+
     try:
         ifile = open(srcFile)
         catfile = ifile.read()
@@ -113,11 +114,11 @@ def main(argv):
     except IOError as e:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
 
-    SF1HEADER()
-    sf2Hosts(srcHost, dstHost)
-    SF3ARGS()
-    sf4IO(out, error, log)
-    SF5POLICY()
+    sf1Header(ofile)
+    sf2Hosts(ofile, srcHost, dstHost)
+    sf3Args(ofile)
+    sf4IO(ofile, output, error, log)
+    sf5Policy(ofile)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
