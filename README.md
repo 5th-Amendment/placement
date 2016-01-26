@@ -5,7 +5,7 @@ Condor-related scripts for performing actual placement
 
 Creating a new placement test:
 A placement job is a Directed Acyclic Graph (DAG). A sample dag is defined in
-the file placement4.dag. Which like the following:
+the file placement4.dag, which like the following:
 
     JOB A placement4-submit
     SCRIPT POST A /bin/false
@@ -17,7 +17,7 @@ There are several variables that define the placement job. Currently a placement
  1. iperf
  2. fdt (fast data transfer)
  3. scp (secure copy)
- 4. netcat (simple, unencrypted copy
+ 4. netcat (simple, unencrypted copy)
  5. iperf
 
 
@@ -25,13 +25,13 @@ The parameters of the experiment are
 
 |PARAMETER NAME |  Description|
 |---------------|-------------|
-| EXPERIMENT |  Name of the experiement. Name of subdirectory for data |
-|SRC_HOST   |  Host **from** which data will be copied|
-|DST_HOST   |  Host **to** which data will be copied |
-|SRC_PATH   |  Full path name of the file to be copied |
-| DST_PATH   |  *relative* path to which file will be copied |
-| cron_hour  |  hours on which placement will occur| 
-| cron_minute|  minute on which placement will occur|
+| EXPERIMENT    |  Name of the experiement. Name of subdirectory for data |
+| SRC_HOST      |  Host **from** which data will be copied|
+| DST_HOST      |  Host **to** which data will be copied |
+| SRC_PATH      |  Full path name of the file to be copied |
+| DST_PATH      |  *relative* path to which file will be copied |
+| cron_hour     |  hours on which placement will occur| 
+| cron_minute   |  minute on which placement will occur|
 
 
 To define new placement job
@@ -43,5 +43,5 @@ To define new placement job
 
 The output file will be \<EXPERIMENT\>/placement4.log. Each successful placement will create a *writerecord* line.
 
-*Note*: iperf reports Kilobytes.  The other tools report Bytes.
+*Note*: iperf reports Kilobytes. The other tools report Bytes.
 
