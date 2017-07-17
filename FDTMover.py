@@ -55,20 +55,24 @@ class FDTMover(DataMover):
 		args.extend(["-p", str(port)])
 		args.extend(["-c", server, self.inputFile])
 		args.extend(["-d","."])
+		args.extend(["-ss","1M"])
 		self.setArgs(args)
 		print "client: " , args
 		self.run()
 
 	def server(self):
 		args = ["-jar", self.FDTJAR, "-S", "-noupdates" ]
+		args.extend(["-bs","1M"])
 		# put the server in debug mode to accept only one incoming connection
 		self.setArgs(args)
 		self.setPortRange(5001,5010)
+		if (os.path.isfile(self.outputFile)):
+			os.unlink(self.outputFile)
 		print "server: " , args
 		self.run()
 
 class FDTMover6(FDTMover):
 	def __init__(self, workDir=None):
 		super(FDTMover6,self).__init__()
-		self.setV6Test = True
+		self.setV6Test(True)
 # vim: ts=4:sw=4:
